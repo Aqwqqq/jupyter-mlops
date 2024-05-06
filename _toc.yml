@@ -3,20 +3,29 @@
 
 format: jb-book
 root: index
-chapters:
-  - file: book/markdown
-  - file: book/notebooks
-  - file: book/bibliography
+#chapters:
+
 
 # Or you organize the TOC by parts
 
-# parts:
-#   - caption: Chapters
-#     numbered: true
-#     maxdepth: 2
-#     chapters:
-#       - file: book/markdown
-#       - file: book/notebooks
-#   - caption: Appendices
-#     chapters:
-#       - file: book/bibliography
+parts:
+- caption: Chapters
+  numbered: true
+  maxdepth: 7
+  chapters:
+  - file: book/overview
+  - file: book/problem-framing
+  - file: book/data-engineering
+  - file: book/model-training-and-evaluation
+  - file: book/model-deployment
+  - file: book/markdown
+  - file: book/notebooks
+- caption: Assignments
+  numbered: true
+  maxdepth: 7
+  chapters:
+  - file: book/assignments/data-engineering
+  - file: book/assignments/counterintuitive-challenges-in-ml-debugging
+  - file: book/assignments/debugging-in-classification
+  - file: book/assignments/debugging-in-regression
+  - file: book/assignments/random-forest-classifier
