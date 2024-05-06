@@ -1,0 +1,750 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5. Model deployment &#8212; MLOps</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'book/model-deployment';</script>
+    <link rel="canonical" href="https://aqwqqq.github.io/jupyter-mlops/book/model-deployment.html" />
+    <link rel="icon" href="../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Markdown Files" href="markdown.html" />
+    <link rel="prev" title="4. Model training &amp; evaluation" href="model-training-and-evaluation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="MLOps - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="MLOps - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="problem-framing.html">2. Problem framing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-engineering.html">3. Data engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-training-and-evaluation.html">4. Model training &amp; evaluation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. Model deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">6. Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">7. Content with notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="assignments/data-engineering.html">8. Data engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments/counterintuitive-challenges-in-ml-debugging.html">9. Counterintuitive Challenges in ML Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments/debugging-in-classification.html">10. Case Study: Debugging in Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments/debugging-in-regression.html">11. Case Study: Debugging in Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments/random-forest-classifier.html">12. Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Aqwqqq/jupyter-mlops.git/master?urlpath=tree/book/model-deployment.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Aqwqqq/jupyter-mlops.git/blob/master/book/model-deployment.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Aqwqqq/jupyter-mlops.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Aqwqqq/jupyter-mlops.git/edit/main/book/model-deployment.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Aqwqqq/jupyter-mlops.git/issues/new?title=Issue%20on%20page%20%2Fbook/model-deployment.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/book/model-deployment.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Model deployment</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-strategies">5.1. Deployment strategies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-evolution">5.2. Deployment evolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serving">5.3. Serving</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infrastructure-as-code">5.4. Infrastructure as code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">5.5. Your turn! 🚀</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>seaborn<span class="w"> </span>pandas<span class="w"> </span>scikit-learn<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="model-deployment">
+<h1><span class="section-number">5. </span>Model deployment<a class="headerlink" href="#model-deployment" title="Link to this heading">#</a></h1>
+<p>Jez Humble and David Farley define continuous delivery as the capacity to safely and efficiently introduce a wide range of changes, such as new features, configuration adjustments, bug fixes, and experiments, into production or the hands of users. <a class="reference external" href="https://en.wikipedia.org/wiki/Continuous_delivery">Continuous delivery</a> is a critical component for the automated production of high-quality software throughout the development pipeline. By emphasizing sustainable practices, Humble and Farley highlight the importance of ensuring that changes are made in a consistent and reliable manner.</p>
+<p>Once the Machine Learning model is trained, it needs to be deployed as part of a business application such as a mobile or desktop application. The Machine Learning model requires various data points to produce predictions. The final stage of the Machine Learning workflow is the delivery of the previously engineered Machine Learning model into existing software.</p>
+<p>The model deployment is a very challenging stage, as it needs to handle both traditional software challenges as well as Machine Learning specific challenges.</p>
+<p>To the traditional software challenges, reliability is necessary to guarantee that the system could continue to work correctly performing inference at the desired level of performance. This is required even when the system faces hardware or software faults, and even human error. Maintainability is the key to allowing the system to be iterated productively over time in the collaborative work environment. With the team growing, flexibility and scalability become more and more important to deal with increased data volume, traffic volume, and complexity. Besides, the whole process must be under version control, through automated CI/CD pipelines and reusable in each development cycle.</p>
+<p>Additionally, there are specific challenges for Machine Learning model deployment. The traditional continuous delivery must be extended to incorporate the Machine Learning based system. Besides the code, the model and the data could also be changed and delivered through the continuous process. So that updating Machine Learning models requires more thorough and thoughtful version control and more advanced CI/CD pipelines. For example, when a new version of the model is developed, the corresponding changes may need to be made not only to the model itself but also to the feature store or the data processing.</p>
+<figure class="align-default" id="ml-axis-of-change">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-axis-of-change.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/ml-axis-of-change.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.1 </span><span class="caption-text"><a class="reference external" href="https://martinfowler.com/articles/cd4ml.html">The 3 axis of change in a Machine Learning application — data, model, and code — and a few reasons for them to change</a></span><a class="headerlink" href="#ml-axis-of-change" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>At last, Machine Learning development needs the coordination of scientists, software engineers, data engineers, and business professionals. This introduces extra challenges to ensure the model works reliably and delivers the desired result.</p>
+<p>In this section, we will describe the important technical components for implementing Machine Learning model deployment, explain the concepts and demonstrate how different patterns can be used to implement the full end-to-end process.</p>
+<section id="deployment-strategies">
+<h2><span class="section-number">5.1. </span>Deployment strategies<a class="headerlink" href="#deployment-strategies" title="Link to this heading">#</a></h2>
+<p>Deployment strategies are practices used to change or upgrade a running instance of an application.</p>
+<p><strong>Basic deployment</strong> implies that all nodes within a target environment (v1.0) are updated with a new version (v2.0) at the same time. This is the simplest but riskiest strategy because all the nodes will go down if the deployed artifacts are broken. This strategy also results in slow deployment rollback.</p>
+<figure class="align-default" id="basic-deployment-strategy">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/basic-deployment-strategy.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/basic-deployment-strategy.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.2 </span><span class="caption-text"><a class="reference external" href="https://harness.io/blog/blue-green-canary-deployment-strategies">Basic deployment strategy</a></span><a class="headerlink" href="#basic-deployment-strategy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In practice, the real-world system is usually composed of many inter-depended modules or services. In this case, the <strong>multi-service deployment</strong> could be considered an option. To this strategy, all nodes within a target environment are updated with multiple new services simultaneously. This reduces the risk of system level failure but introduces the difficulty of managing the service dependencies in both deployment and rollback.</p>
+<figure class="align-default" id="multi-service-deployment-strategy">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/multi-service-deployment-strategy.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/multi-service-deployment-strategy.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.3 </span><span class="caption-text"><a class="reference external" href="https://harness.io/blog/blue-green-canary-deployment-strategies">Multi-service deployment strategy</a></span><a class="headerlink" href="#multi-service-deployment-strategy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>There are several options to help avoid the above issues. <strong>Rolling deployment</strong> incrementally updates all nodes in a target environment with the service or artifact version in batches. <strong>Canary development</strong> is similar but targets to roll out the new version to a certain subset of users instead of services. Both strategies could reduce the risk of failure by introducing finer granularity control to the deployment process. But they require services to support both new and old versions of an artifact, which make it more complex to manage the rollout and rollback.</p>
+<figure class="align-default" id="rolling-deployment-strategy">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/rolling-deployment-strategy.jpg" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/rolling-deployment-strategy.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.4 </span><span class="caption-text"><a class="reference external" href="https://harness.io/blog/blue-green-canary-deployment-strategies">Rolling deployment strategy</a></span><a class="headerlink" href="#rolling-deployment-strategy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="canary-deployment-strategy">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/canary-deployment-strategy.jpg" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/canary-deployment-strategy.jpg" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.5 </span><span class="caption-text"><a class="reference external" href="https://harness.io/blog/blue-green-canary-deployment-strategies">Canary deployment strategy</a></span><a class="headerlink" href="#canary-deployment-strategy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://www.techtarget.com/searchitoperations/answer/When-to-use-canary-vs-blue-green-vs-rolling-deployment">When to use canary vs. Blue/green vs. Rolling deployment.</a> (n.d.). SearchITOperations. Retrieved 11 August 2022</p>
+</div>
+<p>To further improve the deployment, <strong>Blue/Green strategy</strong> is the approach that utilizes two identical environments, a “blue” (aka staging) and a “green” (aka production) environment with different versions of an application or service. Testing is typically done within the blue environment that hosts new versions or changes. Once the new changes are approved, traffic could be shifted from the green environment to the blue one. After the deployment is finished, the blue environment then turns into the staging environment for the next round of deployment.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://www.techtarget.com/searchitoperations/answer/When-to-use-canary-vs-blue-green-vs-rolling-deployment">When to use canary vs. Blue/green vs. Rolling deployment.</a> (n.d.). SearchITOperations. Retrieved 11 August 2022</p>
+</div>
+<figure class="align-default" id="blue-green-deployment-strategy">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/blue-green-deployment-strategy.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/blue-green-deployment-strategy.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.6 </span><span class="caption-text"><a class="reference external" href="https://harness.io/blog/blue-green-canary-deployment-strategies">Blue/Green deployment strategy</a></span><a class="headerlink" href="#blue-green-deployment-strategy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="deployment-evolution">
+<h2><span class="section-number">5.2. </span>Deployment evolution<a class="headerlink" href="#deployment-evolution" title="Link to this heading">#</a></h2>
+<p>When computers were extremely large, expensive, and bulky, the software was often bundled together with the hardware by manufacturers. In the 1980s, new forms of software distribution, such as floppy disks and optical media, came together with the popularity of microcomputers, which meant the software deployment must be faster and more user-friendly. And since the internet age, agile software development has become possible. The advent of cloud computing and software as a service make software able to be deployed to a large number of customers in minutes over the internet.</p>
+<p>As software development evolved, the determining factors of software deployment are changing as well. This requires the art-of-the-state deployment strategies and modes to provide better flexibility for modern computer applications.</p>
+<p><strong>Deployment 1.0</strong></p>
+<p>So-called deployment 1.0 is about deploying resources on-premises, which is an organization’s internal system along with the hardware and other infrastructure or also known as the private cloud. With the on-premises method, the deployment is under more control but takes more time to set up with more cost, although the <a class="reference external" href="https://en.wikipedia.org/wiki/CI/CD">CI/CD</a> toolchain could help.</p>
+<p>Deployment 1.0 usually has Machine Learning models built together with applications to simplify the infrastructure. But web server and the model inference code may be implemented in different programming languages, require different hardware resources, or be executed under different runtime environments. All of these may cause issues to the model deployment, and brings up the next level of deployment.</p>
+<p><strong>Deployment 2.0</strong></p>
+<p>Deployment 2.0 refers to the utilization of containers for software deployment. A <a class="reference external" href="https://www.docker.com/resources/what-container/">container</a> is a standardized software unit that encapsulates code and its dependencies, enabling the application to run consistently and efficiently across various computing environments. Google introduced containers in 2006, and Docker, which was launched in 2013, has become one of the most well-known container services</p>
+<p>Containers provide a lightweight mechanism for isolating an application’s environment. But containers, even the machine running containers could be down still. If the service is consisted of multiple containers, the network failure could break the collaboration among them as well. As the system scales up, more sophisticated deployment strategies are needed to manage the load balance and rolling out and back.</p>
+<p><strong>Deployment 3.0</strong></p>
+<p>To address the concerns above, the container orchestration-based deployment is introduced to upgrade the deployment to 3.0. Container orchestration is to manage multiple containers and automates container lifecycle in large, dynamic environments. It allows taking advantage of the same environments for scaling quickly and easily. <a class="reference external" href="https://kubernetes.io/">Kubernetes</a>(K8s) is the most popular open-source orchestration system for automating the deployment, scaling, and management of containerized applications.</p>
+<p>Kubernetes automates the deployment, scaling, and operations of application containers across clusters of hosts. It supports a broad range of container tools/infrastructures and works well with Docker. Kubernetes is inclusive to cloud providers like Cloud Native Computing Foundation(CNCF) and becomes the industry standard. The most popular IaaS providers also provide their container registries, which is especially useful for projects heavily invested in platforms like AWS, Azure, or Google Cloud.</p>
+<p><strong>Deployment 4.0</strong></p>
+<p>Machine Learning as a Service (MLaaS) refers to a range of cloud-based platforms that address infrastructure concerns associated with machine learning workflows. These platforms handle tasks such as data preprocessing, model training, model evaluation, and prediction. The prediction results can be seamlessly integrated with your internal IT infrastructure using REST APIs. Deployment 4.0 emphasizes the utilization of MLaaS for deploying machine learning solutions, making it a preferred choice when building a custom machine learning solution in-house.</p>
+<p>Over the past years, several open-source frameworks have been developed for deploying Machine Learning services, such as <a class="reference external" href="https://airflow.apache.org/">Apache Airflow</a>, <a class="reference external" href="https://www.kubeflow.org/">KubeFLow</a>, <a class="reference external" href="https://github.com/mlflow/mlflow">MLFlow</a>, <a class="reference external" href="https://github.com/Netflix/metaflow">MetaFlow</a>, etc. For example, Kubeflow is an open-source Machine Learning platform designed to orchestrate complicated Machine Learning workflows running on Kubernetes. It is the cloud-native platform providing both UI and SDK for Machine Learning operations including pipelines, training and deployment.</p>
+<p>Besides, major public cloud players, such as Amazon, Azure, Google, and IBM, are all leading cloud MLaaS services that allow for fast model training and deployment. These open source toolkits are created and integrated closer with their original Machine Learning frameworks. Instead, the fully cloud-managed solutions are more neutral platforms that support more diverse Machine Learning environments and packages.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://speaking.brunoamaro.com/1B7BtS/slides">The hitchhiker’s guide to the cloud (Aws vs gcp vs azure) and their ai/ml api’s capabilities</a>. (n.d.). Retrieved 13 August 2022.</p>
+</div>
+</section>
+<section id="serving">
+<h2><span class="section-number">5.3. </span>Serving<a class="headerlink" href="#serving" title="Link to this heading">#</a></h2>
+<p>It is crucial to clarify the intended experiments before deploying the trained models to users. This ensures that the models adhere to the constraints specified in the problem setup. What kind of feedback should be obtained from users? Should the model be updated online with every new data point? How can the model be personalized for individual users? How often should the Machine Learning algorithm be updated? Is there a possibility of biases and misuses in the model?</p>
+<p>Regardless of which serving pattern to use, there is always an implicit contract between the model and users. The model will usually expect input data in a certain shape, and the changed model will require the contract to be updated for new input or add new features, which may cause integration issues and break the applications using it. Which leads the necessity of continuously monitoring and testing he model. However, to serve and use the model in production, there are a few patterns to achieve.</p>
+<p><strong>Model as module</strong></p>
+<p>This is the simpler approach, where the model works as a dependency that is built and packaged as a module together with the application itself. From this point forward, the application artifact and version could be treated as a combination of the application code and the Machine Learning model.</p>
+<p>A simple way to serve the Machine Learning model embedded is to export it as a serialized <a class="reference external" href="https://docs.python.org/3/library/pickle.html">pickle</a> object. When building the application, we embed the model file inside the same Docker container and then get it versioned and deployed to production. There are other options to implement the this pattern. <a class="reference external" href="https://github.com/combust/mleap">MLeap</a> provides a common serialization format for exporting and importing models built by Spark, scikit-learn, and Tensorflow. There are also language-agnostic exchange formats to share models, such as <a class="reference external" href="http://dmg.org/pmml/v4-3/GeneralStructure.html">PMML</a>, <a class="reference external" href="http://dmg.org/pfa/index.html">PFA</a>, and <a class="reference external" href="https://onnx.ai/">ONNX</a>. Frameworks like H2O could support to export the Python or R implemented model as a compiled executable in another language, such a POJO in Java JAR.</p>
+<p><strong>Model as service</strong></p>
+<p>This is about to have the Machine Learning model to be wrapped in a service that can be deployed independently of the applications. This allows to update the model or the application independently. But it can also introduce more latency at inference time, as the model and the application are communicated with each other through remote invocation or service call for each prediction.</p>
+<p>To implement the “model as service” pattern, most of the cloud providers have tools and SDKs to wrap the Machine Learning model for deployment into their MLaaS platforms, such as Azure Machine Learning, AWS Sagemaker, or Google AI Platform. Open-source solutions, such as Kubeflow for Machine Learning workflows on Kubernetes, could be used too, although they solve more than just the model serving.</p>
+<p><strong>Model as data</strong></p>
+<p>This is another approach to have the Machine Learning model treated and published independently, but the application will ingest it as data at runtime instead. This is more commonly used in streaming or real-time scenarios where the application can subscribe to events that are published whenever a new model version is released. The model data will be ingested into memory for predicting, which avoid introducing the extra latency. Deployment strategies such as Blue/Green deployment or Canary deployment can be applied in this scenario. Some of the above serialization options are also applicable for implementing the “model as data” pattern.</p>
+</section>
+<section id="infrastructure-as-code">
+<h2><span class="section-number">5.4. </span>Infrastructure as code<a class="headerlink" href="#infrastructure-as-code" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Infrastructure_as_code">Infrastructure as code</a> (IaC) is the process of managing and provisioning computer data centers through machine-readable definition files, rather than physical hardware configuration or interactive configuration tools. The IT infrastructure managed by this process comprises both physical equipment, such as bare-metal servers, as well as virtual machines, and associated configuration resources.</p>
+<p><a class="reference external" href="https://docs.github.com/en/actions">GitHub Actions</a> is one of the most well-known IaC implementations, although people may not treat it as IoC. Github Actions makes it easy to automate all the Github software workflows with CI/CD support. By leveraging Github Actions, the developer could manage any infrastructure tasks, including build, test, deploy as well as code reviews, branch management, and issue triaging. Below is some sample infrastructure code from <a class="reference external" href="https://ghdocs-prod.azurewebsites.net/en/actions/quickstart">Github Actions quickstart</a>.</p>
+<div class="yaml docutils">
+<p>name: GitHub Actions Demo
+on: [push]
+jobs:
+Explore-GitHub-Actions:
+runs-on: ubuntu-latest
+steps:
+- run: echo “🎉 The job was automatically triggered by a <span class="math notranslate nohighlight">\({{ github.event_name }} event.&quot;
+      - run: echo &quot;🐧 This job is now running on a \)</span> server hosted by GitHub!”
+- run: echo “🔎 The name of your branch is <span class="math notranslate nohighlight">\({{ github.ref }} and your repository is \)</span>.”
+- name: Check out repository code
+uses: actions/checkout&#64;v3
+- run: echo “💡 The <span class="math notranslate nohighlight">\({{ github.repository }} repository has been cloned to the runner.&quot;
+      - run: echo &quot;🖥️ The workflow is now ready to test your code on the runner.&quot;
+      - name: List files in the repository
+        run: |
+          ls \)</span>
+- run: echo “🍏 This job’s status is $.”</p>
+</div>
+<p>This sceipt will be triggered by a git code <code class="docutils literal notranslate"><span class="pre">push</span></code>, and runs on a <code class="docutils literal notranslate"><span class="pre">ubuntu-latest</span></code> instance. It first checks out the code repository by using action <code class="docutils literal notranslate"><span class="pre">actions/checkout&#64;v3</span></code>, then lists all the files of the repository by running <code class="docutils literal notranslate"><span class="pre">ls</span> <span class="pre">${{</span> <span class="pre">github.workspace</span> <span class="pre">}}</span></code>.</p>
+<figure class="align-default" id="actions-quickstart-logs">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/actions-quickstart-logs.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/actions-quickstart-logs.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.7 </span><span class="caption-text"><a class="reference external" href="https://ghdocs-prod.azurewebsites.net/en/actions/quickstart">Github Actions Quickstart Logs</a></span><a class="headerlink" href="#actions-quickstart-logs" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The log shows how each of the steps is processed. And, here is the list of files in the repository.</p>
+<figure class="align-default" id="actions-quickstart-log-detail">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/actions-quickstart-log-detail.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/actions-quickstart-log-detail.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 5.8 </span><span class="caption-text"><a class="reference external" href="https://ghdocs-prod.azurewebsites.net/en/actions/quickstart">Github Actions Quickstart Log Detail</a></span><a class="headerlink" href="#actions-quickstart-log-detail" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The RedHat-sponsored <a class="reference external" href="https://github.com/ansible/ansible">Ansible</a> is an open-source IaC framework handling configuration management, application deployment, cloud provisioning, ad-hoc task execution, network automation, and multi-node orchestration. As a public cloud hosted solution, <a class="reference external" href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html">AWS CloudFormation</a> is an IoC service that helps the development teams model and set up AWS resources so that they can spend less time managing those resources and more time focusing on the applications that run in AWS. Both the open-source and hosted frameworks altogeher provide the flexibility for development teams to choose the right solution to adopt based on their requirements.</p>
+</section>
+<section id="your-turn">
+<h2><span class="section-number">5.5. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
+<p>Practice the model serving by following this <a class="reference external" href="https://madewithml.com/courses/mlops/api/">turorial</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./book"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="model-training-and-evaluation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Model training &amp; evaluation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="markdown.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Markdown Files</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-strategies">5.1. Deployment strategies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment-evolution">5.2. Deployment evolution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serving">5.3. Serving</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#infrastructure-as-code">5.4. Infrastructure as code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">5.5. Your turn! 🚀</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xu Mingrui
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

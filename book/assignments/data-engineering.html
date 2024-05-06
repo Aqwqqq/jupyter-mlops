@@ -1,0 +1,896 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>8. Data engineering &#8212; MLOps</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'book/assignments/data-engineering';</script>
+    <link rel="canonical" href="https://aqwqqq.github.io/jupyter-mlops/book/assignments/data-engineering.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="9. Counterintuitive Challenges in ML Debugging" href="counterintuitive-challenges-in-ml-debugging.html" />
+    <link rel="prev" title="7. Content with notebooks" href="../notebooks.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="MLOps - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="MLOps - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">1. Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../problem-framing.html">2. Problem framing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data-engineering.html">3. Data engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model-training-and-evaluation.html">4. Model training &amp; evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../model-deployment.html">5. Model deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../markdown.html">6. Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">7. Content with notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Data engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="counterintuitive-challenges-in-ml-debugging.html">9. Counterintuitive Challenges in ML Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging-in-classification.html">10. Case Study: Debugging in Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging-in-regression.html">11. Case Study: Debugging in Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="random-forest-classifier.html">12. Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Aqwqqq/jupyter-mlops.git/master?urlpath=tree/book/assignments/data-engineering.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Aqwqqq/jupyter-mlops.git/blob/master/book/assignments/data-engineering.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Aqwqqq/jupyter-mlops.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Aqwqqq/jupyter-mlops.git/edit/main/book/assignments/data-engineering.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Aqwqqq/jupyter-mlops.git/issues/new?title=Issue%20on%20page%20%2Fbook/assignments/data-engineering.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/book/assignments/data-engineering.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Data engineering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-dataset">8.1. Exploring dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-missing-data">8.2. Dealing with missing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-duplicate-data">8.3. Removing duplicate data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handle-inconsistent-data">8.4. Handle inconsistent data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#at-last">8.5. At last</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">8.6. Acknowledgments</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="data-engineering">
+<h1><span class="section-number">8. </span>Data engineering<a class="headerlink" href="#data-engineering" title="Link to this heading">#</a></h1>
+<p>This assignment focuses on techniques for cleaning and transforming the data to handle challenges of missing, inaccurate, or incomplete data. Please refer to <a class="reference internal" href="#"><span class="doc std std-doc">Machine Learning productionization - Data engineering</span></a> to learn more.</p>
+<p>Fill <code class="docutils literal notranslate"><span class="pre">____</span></code> pieces of the below implementation in order to pass the assertions.</p>
+<!-- 
+# removing rows with missing values from dataset: pandas.DataFrame dataset.dropna(inplace=True) # removing columns with ratio of missing values greater than a threshold dataset = dataset[dataset.columns[dataset.isnull().mean() <= THRESHOLD]]
+
+Imputation. If the number of missing values is not small enough to be removed and not large enough to be a substantial proportion of the variable entries, you can replace the missing values in a numerical variable with the mean/median of the non-missing entries and the missing values in a categorical variable with the mode, which is the most frequent entry of the variable.
+
+# imputing missing values in each column with the mean of the corresponding # column using scikit-learn from sklearn.impute import SimpleImputer imputer = SimpleImputer(strategy='mean') # transform the dataset imputed_dataset = imputer.fit_transform(dataset)
+
+Identifying the group of attributes that uniquely identify a single record is very important and needs validation from a domain expert. Removing duplicates on this group leaves you with distinct records necessary for model training. This group acts as a key to performing multiple aggregate and transformations operations on the dataset like calculating rolling mean, backfilling null values, missing value imputation (details on this in next point), etc.
+True duplicates, i.e., instances of the same data point, are usually removed. In this way, the increase of the sample weight on these points is eliminated, and the risk of any artificial inflation in the performance metrics is reduced --><section id="exploring-dataset">
+<h2><span class="section-number">8.1. </span>Exploring dataset<a class="headerlink" href="#exploring-dataset" title="Link to this heading">#</a></h2>
+<blockquote>
+<div><p><strong>Learning goal</strong>: By the end of this subsection, you should be comfortable finding general information about the data stored in pandas DataFrames.</p>
+</div></blockquote>
+<p>In order to explore this functionality, we will import the modefined version of Python scikit-learn library’s iconic dataset <strong>Iris</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="n">iris_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../assets/data/modefined_sklearn_iris_dataset.csv&#39;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">iris_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To start off, print the summary of a DataFrame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next, let’s check the actual content of the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># displying first 5 rows of our iris_df</span>
+<span class="n">iris_df____</span>
+
+<span class="c1"># in the first five rows, which one&#39;s spepal length is 5.0cm?</span>
+<span class="k">assert</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">____</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mf">5.0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Conversely, we can check the last few rows of the DataFrame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># displying last 5 rows of our `iris_df`.</span>
+<span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="c1"># in the last five rows, which one&#39;s spepal width is 2.5cm?</span>
+<span class="k">assert</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">____</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mf">2.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Takeaway</strong>: Even just by looking at the metadata about the information in a DataFrame or the first and last few values in one, you can get an immediate idea about the size, shape, and content of the data you are dealing with.</p>
+</section>
+<section id="dealing-with-missing-data">
+<h2><span class="section-number">8.2. </span>Dealing with missing data<a class="headerlink" href="#dealing-with-missing-data" title="Link to this heading">#</a></h2>
+<p>Missing data can cause inaccuracies as well as weak or biased results. Sometimes these can be resolved by a “reload” of the data, filling in the missing values with computation and code like Python, or simply just removing the value and corresponding data. There are numerous reasons for why data may be missing and the actions that are taken to resolve these missing values can be dependent on how and why they went missing in the first place.</p>
+<blockquote>
+<div><p><strong>Learning goal</strong>: By the end of this subsection, you should know how to replace or remove null values from DataFrames.</p>
+</div></blockquote>
+<p>In pandas, the <code class="docutils literal notranslate"><span class="pre">isnull()</span></code> and <code class="docutils literal notranslate"><span class="pre">notnull()</span></code> methods are your primary methods for detecting null data. Both return Boolean masks over your data. We will be using numpy for NaN values:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_isnull_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">iris_isnull_df</span><span class="p">)</span>
+
+<span class="c1"># find one row with missing value</span>
+<span class="k">assert</span> <span class="n">iris_isnull_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
+<span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">iris_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">])</span> <span class="o">==</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get all the rows with missing data</span>
+<span class="n">iris_with_missing_value_df</span> <span class="o">=</span> <span class="n">iris_df____</span>
+
+<span class="k">assert</span> <span class="n">iris_with_missing_value_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">16</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Dropping null values</strong>: Beyond identifying missing values, pandas provides a convenient means <code class="docutils literal notranslate"><span class="pre">dropna</span></code> to remove null values from Series and DataFrames. (Particularly on large data sets, it is often more advisable to simply remove missing [NA] values from your analysis than deal with them in other ways.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove all the rows with missing values</span>
+<span class="n">iris_with_dropna_on_row_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="k">assert</span> <span class="n">iris_with_dropna_on_row_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">134</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove all the columns with missing values</span>
+<span class="n">iris_with_dropna_on_column_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="k">assert</span> <span class="n">iris_with_dropna_on_column_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove all the rows with 2 missing values</span>
+<span class="n">iris_with_dropna_2_values_on_rows_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="k">assert</span> <span class="n">iris_with_dropna_2_values_on_rows_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">144</span>
+
+<span class="c1"># remove all the rows with 1 missing values</span>
+<span class="n">iris_with_dropna_1_values_on_rows_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="k">assert</span> <span class="n">iris_with_dropna_1_values_on_rows_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">147</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Filling null values</strong>: Depending on your dataset, it can sometimes make more sense to fill null values with valid ones rather than drop them. You could use <code class="docutils literal notranslate"><span class="pre">isnull</span></code> to do this in place, but that can be laborious, particularly if you have a lot of values to fill. Because this is such a common task in data science, pandas provides <code class="docutils literal notranslate"><span class="pre">fillna</span></code>, which returns a copy of the Series or DataFrame with the missing values replaced with one of your choosing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fll all the missing values with 0</span>
+<span class="n">iris_with_fillna_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="c1"># get all the rows with missing data</span>
+<span class="n">iris_with_missing_value_after_fillna_df</span> <span class="o">=</span> <span class="n">iris_with_fillna_df____</span>
+
+<span class="k">assert</span> <span class="n">iris_with_missing_value_after_fillna_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="k">assert</span> <span class="n">iris_with_fillna_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">____</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># forward-fill null values, which is to use the last valid value to fill a null:</span>
+<span class="n">iris_with_fillna_forward_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="c1"># get all the rows with missing data</span>
+<span class="n">iris_with_missing_value_after_fillna_forward_df</span> <span class="o">=</span> <span class="n">iris_with_fillna_forward_df____</span>
+
+<span class="k">assert</span> <span class="n">iris_with_missing_value_after_fillna_forward_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="k">assert</span> <span class="nb">float</span><span class="p">(</span><span class="n">iris_with_fillna_forward_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">==</span> <span class="mf">0.2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># back-fill null values, which is to use the next valid value to fill a null:</span>
+<span class="n">iris_with_fillna_back_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="c1"># get all the rows with missing data</span>
+<span class="n">iris_with_missing_value_after_fillna_back_df</span> <span class="o">=</span> <span class="n">iris_with_fillna_back_df____</span>
+
+<span class="k">assert</span> <span class="n">iris_with_missing_value_after_fillna_back_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="k">assert</span> <span class="nb">float</span><span class="p">(</span><span class="n">iris_with_fillna_back_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="o">==</span> <span class="mf">0.1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="removing-duplicate-data">
+<h2><span class="section-number">8.3. </span>Removing duplicate data<a class="headerlink" href="#removing-duplicate-data" title="Link to this heading">#</a></h2>
+<p>Data that has more than one occurrence can produce inaccurate results and usually should be removed. This can be a common occurrence when joining two or more datasets together. However, there are instances where duplication in joined datasets contain pieces that can provide additional information and may need to be preserved.</p>
+<blockquote>
+<div><p><strong>Learning goal</strong>: By the end of this subsection, you should be comfortable identifying and removing duplicate values from DataFrames.</p>
+</div></blockquote>
+<p>In addition to missing data, you will often encounter duplicated data in real-world datasets. Fortunately, pandas provides an easy means of detecting and removing duplicate entries.</p>
+<p><strong>Identifying duplicates</strong>: You can easily spot duplicate values using the <code class="docutils literal notranslate"><span class="pre">duplicated</span></code>  method in pandas, which returns a Boolean mask indicating whether an entry in a DataFrame is a duplicate of an earlier one. Let’s create another example DataFrame to see this in action.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">iris_isduplicated_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">iris_isduplicated_df</span><span class="p">)</span>
+
+<span class="c1"># find one row with duplicated value</span>
+<span class="k">assert</span> <span class="n">iris_isduplicated_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">____</span><span class="p">,</span> <span class="n">____</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Dropping duplicates</strong>: <code class="docutils literal notranslate"><span class="pre">drop_duplicates</span></code> simply returns a copy of the data for which all of the duplicated values are False:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove all the rows with duplicated values</span>
+<span class="n">iris_with_drop_duplicates_on_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+
+<span class="k">assert</span> <span class="n">iris_with_drop_duplicates_on_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">143</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Both <code class="docutils literal notranslate"><span class="pre">duplicated</span></code> and <code class="docutils literal notranslate"><span class="pre">drop_duplicates</span></code> default to consider all columns but you can specify that they examine only a subset of columns in your DataFrame:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove all the rows with duplicated values on column &#39;petal width (cm)&#39;</span>
+<span class="n">iris_with_drop_duplicates_on_column_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="k">assert</span> <span class="n">iris_with_drop_duplicates_on_column_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">27</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="handle-inconsistent-data">
+<h2><span class="section-number">8.4. </span>Handle inconsistent data<a class="headerlink" href="#handle-inconsistent-data" title="Link to this heading">#</a></h2>
+<p>Depending on the source, data can have inconsistencies in how it’s presented. This can cause problems in searching for and representing the value, where it’s seen within the dataset but is not properly represented in visualizations or query results. Common formatting problems involve resolving whitespace, dates, and data types. Resolving formatting issues is typically up to the people who are using the data. For example, standards on how dates and numbers are presented can differ by country.</p>
+<blockquote>
+<div><p><strong>Learning goal</strong>: By the end of this subsection, you should know how to handle the inconsistent data format in the DataFrame.</p>
+</div></blockquote>
+<p>Let’s cleaning up the <strong>4th</strong> column <code class="docutils literal notranslate"><span class="pre">petal</span> <span class="pre">width</span> <span class="pre">(cm)</span></code> to make sure there’s no data entry inconsistencies in it. Firstly, we will use a convenient method <code class="docutils literal notranslate"><span class="pre">unique</span></code> from pandas to check the unique values of this column</p>
+<p>In pandas, the <code class="docutils literal notranslate"><span class="pre">unique</span></code> method is a convenient way to unique values based on a hash table:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">column_to_format</span> <span class="o">=</span> <span class="n">____</span>
+<span class="n">column_to_format_unique</span> <span class="o">=</span> <span class="n">column_to_format</span><span class="o">.</span><span class="n">____</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">column_to_format_unique</span><span class="p">)</span>
+
+<span class="c1"># find one row with duplicated value</span>
+<span class="k">assert</span> <span class="n">column_to_format_unique</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">27</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Regardless the <code class="docutils literal notranslate"><span class="pre">nan</span></code> value, you may find the numeric valus are in different precision. More specifically, <code class="docutils literal notranslate"><span class="pre">1.</span></code> or <code class="docutils literal notranslate"><span class="pre">1.5012</span></code> are not in the same precision as other numbers. We want to append tailing <code class="docutils literal notranslate"><span class="pre">0</span></code> to numbers like <code class="docutils literal notranslate"><span class="pre">1.</span></code>, and round numbers like <code class="docutils literal notranslate"><span class="pre">1.5012</span></code> to <code class="docutils literal notranslate"><span class="pre">1.5</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># firstly, let&#39;s apply `round`` to the values to make the precision all as .1f</span>
+<span class="n">formatted_column</span> <span class="o">=</span> <span class="n">column_to_format</span><span class="o">.</span><span class="n">____</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">formatted_column</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+<span class="k">assert</span> <span class="n">formatted_column</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">23</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># now, let&#39;s add tailing 0 if needed to make numbers like 1. to be 1.0. </span>
+<span class="c1"># You may need to filter the nan value while processing.</span>
+<span class="n">formatted_column</span> <span class="o">=</span> <span class="n">formatted_column</span><span class="o">.</span><span class="n">____</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">formatted_column</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+<span class="k">assert</span> <span class="n">formatted_column</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">23</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="at-last">
+<h2><span class="section-number">8.5. </span>At last<a class="headerlink" href="#at-last" title="Link to this heading">#</a></h2>
+<p>Let’s apply all the methods above to make the data to be clean.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># remove all rows with missing values</span>
+<span class="n">no_missing_data_df</span> <span class="o">=</span> <span class="n">iris_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="c1"># remove all rows with duplicated values</span>
+<span class="n">no_missing_dup_data_df</span> <span class="o">=</span> <span class="n">no_missing_data_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="c1"># apply the precision .1f to all the numbers</span>
+<span class="n">cleand_df</span> <span class="o">=</span> <span class="n">no_missing_dup_data_df</span><span class="o">.</span><span class="n">____</span>
+
+<span class="k">assert</span> <span class="n">no_missing_data_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">134</span>
+<span class="k">assert</span> <span class="n">no_missing_dup_data_df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">129</span>
+<span class="k">assert</span> <span class="n">cleand_df</span><span class="p">[</span><span class="n">cleand_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">22</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Also, you could refer to below for more about how to handle data quality.</p>
+<ul class="simple">
+<li><p>missing data - <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/missing_data.html">pandas - Working with missing data</a></p></li>
+<li><p>duplicate data - <a class="reference external" href="https://pandas.pydata.org/docs/user_guide/duplicates.html">pandas - Duplicate Labels</a></p></li>
+<li><p>outlier</p>
+<ul>
+<li><p><a class="reference external" href="https://towardsdatascience.com/ways-to-detect-and-remove-the-outliers-404d16608dba">Ways to Detect and Remove the Outliers</a></p></li>
+<li><p><a class="reference external" href="https://www.kaggle.com/code/nareshbhat/outlier-the-silent-killer">Outlier!!! The Silent Killer</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="acknowledgments">
+<h2><span class="section-number">8.6. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading">#</a></h2>
+<p>Thanks to Microsoft for creating the open source course <a class="reference external" href="https://github.com/microsoft/Data-Science-For-Beginners">Data Science for Beginners</a>. It contributes some of the content in this chapter.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./book/assignments"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../notebooks.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>Content with notebooks</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="counterintuitive-challenges-in-ml-debugging.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Counterintuitive Challenges in ML Debugging</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-dataset">8.1. Exploring dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dealing-with-missing-data">8.2. Dealing with missing data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#removing-duplicate-data">8.3. Removing duplicate data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handle-inconsistent-data">8.4. Handle inconsistent data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#at-last">8.5. At last</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">8.6. Acknowledgments</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xu Mingrui
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
