@@ -1,7 +1,7 @@
 name: deploy
 
 on:
-  # Trigger the workflow on push to main branch
+  # Trigger the workflow on push to master branch
   push:
     branches:
       - main
@@ -36,4 +36,8 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3.6.1
       with:
         github_token: ${{ secrets.GH_TOKEN }}
+<<<<<<< HEAD
         publish_dir: ./_build/html
+=======
+        publish_dir: ./_build/html
+>>>>>>> 9dc54ae48b3fbf7791bab69fb18587cca4eea4a2
