@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2. Problem framing &#8212; MLOps</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'book/problem-framing';</script>
+    <link rel="canonical" href="https://aqwqqq.github.io/jupyter-mlops/book/problem-framing.html" />
+    <link rel="icon" href="../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Data engineering" href="data-engineering.html" />
+    <link rel="prev" title="1. Overview" href="overview.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="MLOps - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="MLOps - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">1. Overview</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Problem framing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-engineering.html">3. Data engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-training-and-evaluation.html">4. Model training &amp; evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model-deployment.html">5. Model deployment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">6. Markdown Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">7. Content with notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="assignments/data-engineering.html">8. Data engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments/counterintuitive-challenges-in-ml-debugging.html">9. Counterintuitive Challenges in ML Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments/debugging-in-classification.html">10. Case Study: Debugging in Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments/debugging-in-regression.html">11. Case Study: Debugging in Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assignments/random-forest-classifier.html">12. Introduction</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/Aqwqqq/jupyter-mlops.git/master?urlpath=tree/book/problem-framing.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/Aqwqqq/jupyter-mlops.git/blob/master/book/problem-framing.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Aqwqqq/jupyter-mlops.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Aqwqqq/jupyter-mlops.git/edit/main/book/problem-framing.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Aqwqqq/jupyter-mlops.git/issues/new?title=Issue%20on%20page%20%2Fbook/problem-framing.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/book/problem-framing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Problem framing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-machine-learning-the-best-choice">2.1. Is Machine Learning the best choice?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-easy-to-obtain-the-data">2.2. How easy to obtain the data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-models-to-use">2.3. What models to use?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-put-a-model-into-production">2.4. How to put a model into production?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">2.5. Your turn! 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-study">2.6. Self study</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the necessary dependencies</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">!{</span>sys.executable<span class="o">}</span><span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--quiet<span class="w"> </span>seaborn<span class="w"> </span>pandas<span class="w"> </span>scikit-learn<span class="w"> </span>numpy<span class="w"> </span>matplotlib<span class="w"> </span>jupyterlab_myst<span class="w"> </span>ipython
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="problem-framing">
+<h1><span class="section-number">2. </span>Problem framing<a class="headerlink" href="#problem-framing" title="Link to this heading">#</a></h1>
+<p><strong><a class="reference external" href="https://developers.google.com/machine-learning/problem-framing/problem-framing">Problem framing</a></strong> is the process of analyzing a problem to isolate the individual elements that need to be addressed to solve it. It helps you to determine the feasibility of your project, and clearly defines the project goals and success criteria. Under our context, problem framing is to dive deep into the business requirements to figure out a potential Machine Learning based technical solution.</p>
+<blockquote>
+<div><p>“Formal problem framing is the critical beginning for solving an ML problem, as it forces us to better understand both the problem and the data in order to design and build a bridge between them. “
+– TensorFlow engineer</p>
+</div></blockquote>
+<p>At a high level, Machine Learning problem framing consists of two distinct steps:</p>
+<ul class="simple">
+<li><p>Determine if Machine Learning is the right approach to solve the problem.</p></li>
+<li><p>Frame the problem in Machine Learning terms through the whole development lifecycle.</p></li>
+</ul>
+<p>Before rushing into the Machine Learning implementation, let’s frame the problem by answering the below questions first.</p>
+<section id="is-machine-learning-the-best-choice">
+<h2><span class="section-number">2.1. </span>Is Machine Learning the best choice?<a class="headerlink" href="#is-machine-learning-the-best-choice" title="Link to this heading">#</a></h2>
+<p>Machine Learning is not universally applicable. Similar to any other technology, it could only be used to solve certain problems.</p>
+<p><strong>What are the existing solutions?</strong> Machine Learning may be considered either when a problem is new, or existing non-Machine Learning solutions are not optimized. If it is the former, try solving the problem manually using a <a class="reference external" href="https://en.wikipedia.org/wiki/Heuristic">heuristic</a> approach. Otherwise, the existing non-Machine Learning solution could be leveraged as a benchmark to help you make the decision.</p>
+<p><strong>Is the error tolerable?</strong> Achieving 100% accuracy in Machine Learning predictions is challenging. Occasionally, the slight possibility of false negatives may be unacceptable. Consider Deep Learning’s success in expediting MRI reconstruction compared to conventional methods. Despite the significant enhancement in image quality, the issue of false-negative reconstructions persists and warrants improvement.</p>
+<p><strong>Is concrete interpretability needed?</strong> Machine learning effectively enhances products, processes, and research, yet computers typically do not articulate their reasoning. The potential issue of the <a class="reference external" href="https://www.technologyreview.com/2017/04/11/5113/the-dark-secret-at-the-heart-of-ai/">dark secret at the heart of AI</a> may arise. Conversely, improved explanations could bolster trust in the decision to embrace machine learning. However, this remains a challenge, especially in the context of supervised machine learning, not to mention deep learning.</p>
+<p><strong>Any risk to violate ethics or regulation?</strong>  AI raises significant ethical concerns for society, particularly in the areas of privacy and surveillance, bias, and discrimination. For instance, in the heavily regulated banking industry, algorithm-based lending decisions could lead to systematic discrimination against African Americans and other marginalized consumers.</p>
+<p><strong>Are any Machine Learning approaches available?</strong> To create a TikTok alike short video platform, <a class="reference external" href="https://aws.amazon.com/rekognition/content-moderation/">Amazon Rekognition</a> could help build AI-powered content moderation easily. And <a class="reference external" href="https://aws.amazon.com/transcribe/">Amazon Transcribe</a> is something ready to use for generating transcripts automatically for customers. To <a class="reference external" href="https://en.wikipedia.org/wiki/Reinventing_the_wheel">reinvent the wheel</a> is resource-wasting and should be avoided always.</p>
+<p><strong>Is Machine Learning cost-effective?</strong> The expenses associated with a Machine Learning solution may span various areas, similar to traditional software development, such as cloud services, data, hardware, human resources, maintenance, and more. Additionally, if the team lacks experience in Machine Learning, the additional training costs should be taken into account. When considering Machine Learning as an option, the concept of <a class="reference external" href="https://en.wikipedia.org/wiki/Opportunity_cost">opportunity cost</a> must be kept in mind. Specifically, the application of machine learning can easily lead to significant ongoing maintenance costs at the system level, including boundary erosion, entanglement, hidden feedback loops, undisclosed consumers, data dependencies, changes in the external environment, and various system-level antipatterns.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Sculley, David, et al. “<a class="reference external" href="https://proceedings.neurips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html">Hidden technical debt in machine learning systems.</a>” Advances in neural information processing systems 28 (2015).</p>
+</div>
+</section>
+<section id="how-easy-to-obtain-the-data">
+<h2><span class="section-number">2.2. </span>How easy to obtain the data?<a class="headerlink" href="#how-easy-to-obtain-the-data" title="Link to this heading">#</a></h2>
+<p>It is no doubt that data is the driving force of Machine Learning. Make sure you have the data required to train a model, before initiating the Machine Learning execution. Regardless of the challenge to gather data from your own company or real customers, the options below could be helpful.</p>
+<p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Synthetic_data">Synthetic data</a></strong>, referring to any production data relevant to a given situation that is not obtained through direct measurement, is typically generated by computer simulation. In today’s AI landscape, synthetic data is increasingly gaining importance and is even projected to surpass real data by 2030 (Gartner Inc.). <a class="reference external" href="https://en.wikipedia.org/wiki/Generative_adversarial_network">Generative Adversarial Networks</a>(GANs) stand out as one of the most popular frameworks for generating synthetic data. For instance, <a class="reference external" href="https://blogs.nvidia.com/blog/2020/04/23/ford-ai-data/">Ford has combined gaming engines and GANs to create synthetic data for AI training for self-driving</a>. Other approaches to generating synthetic data include statistical distribution fitting, rule-based procedural generation, benchmarks, simulations, and more.</p>
+<figure class="align-default" id="synthetic-data-will-completely-overshadow-real-data-in-ai-models">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/gartner-chart.jpeg" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/gartner-chart.jpeg" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.1 </span><span class="caption-text">Synthetic Data Will Completely Overshadow Real Data in AI Models(<a class="reference external" href="https://www.gartner.com/en/documents/4002912">https://www.gartner.com/en/documents/4002912</a>)</span><a class="headerlink" href="#synthetic-data-will-completely-overshadow-real-data-in-ai-models" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>El Emam, Khaled, Lucy Mosquera, and Richard Hoptroff. <a class="reference external" href="https://www.oreilly.com/library/view/practical-synthetic-data/9781492072737/">Practical synthetic data generation: balancing privacy and the broad availability of data</a>. O’Reilly Media, 2020.</p>
+</div>
+<p><strong>Public data.</strong> There are many public available Open Source or free-to-use datasets. They are on plenty of different topics, easy to access, and of good quality. <a class="reference external" href="https://data.gov/">data.gov</a> is a great example of the government entity. The White House under the Obama administration has been a leader in its approach to transparency and launched the website in 2009. To date, more than 300k datasets are available on the site.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://github.com/ocademy-ai/open-learning-resources/blob/main/README.md#dataset">Open Learning Resource - dataset</a> - a curated list of open-source/public datasets.</p>
+</div>
+<p><strong>More data is better?</strong> The question of whether more data is better has both a yes and no answer. Research has shown that the performance of Machine Learning can increase either monotonically (Banko and Brill, 2001) or logarithmically (Halevy et al., 2009) based on the volume of training data, suggesting that in general, more data is beneficial. However, this is not universally true, as the introduction of more data can also lead to increased noise, which may diminish the quality of the data. Additionally, the availability of large public datasets such as Imagenet and recent advancements in research have reduced the competitive advantage of having access to more data. Therefore, while more data can be advantageous, it is not always the case, and the quality of the data is equally important.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://qr.ae/pv4GyP">In machine learning, is more data always better than better algorithms? | Quora</a></p>
+</div>
+</section>
+<section id="what-models-to-use">
+<h2><span class="section-number">2.3. </span>What models to use?<a class="headerlink" href="#what-models-to-use" title="Link to this heading">#</a></h2>
+<p>This is one of the most widely discussed topics when people approach a Machine Learning solution. There are three main categories of machine learning: supervised learning, unsupervised learning, and reinforcement learning. The cheat sheet from Microsoft could be a helpful quick reference.</p>
+<figure class="align-default" id="machine-learning-algorithm-cheat-sheet">
+<img alt="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/machine-learning-algorithm-cheat-sheet.png" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/machine-learning-algorithm-cheat-sheet.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 2.2 </span><span class="caption-text"><a class="reference external" href="https://docs.microsoft.com/en-us/azure/machine-learning/algorithm-cheat-sheet">Machine Learning Algorithm Cheat Sheet</a></span><a class="headerlink" href="#machine-learning-algorithm-cheat-sheet" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/azure/machine-learning/how-to-select-algorithms">How to select algorithms for Azure Machine Learning</a></p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/tutorial/machine_learning_map/index.html">Choosing the right estimator | scikit-learn</a></p></li>
+</ul>
+</div>
+<p><strong><a class="reference external" href="https://en.wikipedia.org/wiki/Automated_machine_learning">Automated Machine Learning (AutoML)</a></strong> is the process and method of automating the tasks of applying Machine Learning to real-world problems, which is another option to help select the algorithm. It makes Machine Learning available to non-experts, such as software engineers. Many open-source libraries could be leveraged for AutoML, such as <a class="reference external" href="https://auto.gluon.ai/">AutoGluon</a>, <a class="reference external" href="https://github.com/keras-team/autokeras">AutoKeras</a>.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://odsc.medium.com/the-past-present-and-future-of-automated-machine-learning-5e081ca4b71a">The Past, Present, and Future of Automated Machine Learning</a></p></li>
+<li><p><a class="reference external" href="https://www.automl.org/">automl.org - What is AutoML?</a></p></li>
+<li><p><a class="reference external" href="https://docs.microsoft.com/en-us/azure/machine-learning/concept-automated-ml">What is automated ML? AutoML | Microsoft Azure</a></p></li>
+<li><p><a class="reference external" href="https://aws.amazon.com/machine-learning/automl/">AutoML tools and solutions from AWS</a></p></li>
+</ul>
+</div>
+</section>
+<section id="how-to-put-a-model-into-production">
+<h2><span class="section-number">2.4. </span>How to put a model into production?<a class="headerlink" href="#how-to-put-a-model-into-production" title="Link to this heading">#</a></h2>
+<p>Machine Learning inference is the process of inputting data into a model to calculate an output, which is also referred to as “putting a Machine Learning model into production”. There are two major types of inferences that may impact the feasibility of productionize the trained model.</p>
+<p><strong>Batch inference</strong> means that multiple predictions are requested periodically. The <a class="reference external" href="https://covid19-projections.com/">COVID-19 Projections</a> project is typically a batch inference example, which is mentioned in the previous section. Another good example is Facebook News feed generation, which is a complex and time-consuming artificial intelligent process. The News feeds are pre-generated regularly and stored in the cache. Then the web application could request and present the cached feeds in runtime.</p>
+<p><strong>Online inference</strong>, on the contrary, is the process to handle the prediction in real-time, synchronized, or from continuous data streaming. The online inference is suitable for more latency-sensitive user scenarios such as search engines and autonomous driving. And it requires speeding up both the inferring and input data sampling. It should be noted that the inference is usually just part of the end-to-end workflow of serving a request from the client side. It will be more challenging if the reference is on the critical path.</p>
+</section>
+<section id="your-turn">
+<h2><span class="section-number">2.5. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
+<p>Apply the knowledge of this section to refine <a class="reference internal" href="#overview.html#your-turn"><span class="xref myst">your own Machine Learning project proposal</span></a>.</p>
+</section>
+<section id="self-study">
+<h2><span class="section-number">2.6. </span>Self study<a class="headerlink" href="#self-study" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://developers.google.com/machine-learning/problem-framing">Introduction to Machine Learning Problem Framing</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./book"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="overview.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="data-engineering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Data engineering</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#is-machine-learning-the-best-choice">2.1. Is Machine Learning the best choice?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-easy-to-obtain-the-data">2.2. How easy to obtain the data?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-models-to-use">2.3. What models to use?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-put-a-model-into-production">2.4. How to put a model into production?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">2.5. Your turn! 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-study">2.6. Self study</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Xu Mingrui
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
