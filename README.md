@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 # MLOps
 
-this is a book for studying MLOpd
+this is a book for studying MLOps
 
 ## Usage
 
