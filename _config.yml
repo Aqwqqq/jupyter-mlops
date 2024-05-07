@@ -8,7 +8,8 @@
 title: MLOps # The title of the book. Will be placed in the left navbar.
 author: Xu Mingrui # The author of the book
 copyright: "2024" # Copyright year to be placed in the footer
-logo: logo.png # A path to the book logo
+
+logo: logo.jpg # A path to the book logo
 # Patterns to skip when building the book. Can be glob-style (e.g. "*skip.ipynb")
 exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
 # Auto-exclude files not in the toc
@@ -55,7 +56,7 @@ sphinx:
     # html_extra_path: ["CNAME", "robots.txt"]
     html_theme_options:
       use_download_button: true
-      repository_url: https://github.com/Aqwqqq/jupyter-mlops.git
+      repository_url: https://github.com/Aqwqqq/jupyter-mlops
       use_issues_button: true
       use_repository_button: true
       use_edit_page_button: true
