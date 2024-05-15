@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>12. Introduction &#8212; MLOps</title>
+    <title>10. Introduction &#8212; MLOps</title>
   
   
   
@@ -62,7 +62,8 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="11. Case Study: Debugging in Regression" href="debugging-in-regression.html" />
+    <link rel="next" title="11. Customer Churn Prediction with XGBoost" href="../xgboost_customer_churn.html" />
+    <link rel="prev" title="9. Case Study: Debugging in Regression" href="debugging-in-regression.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,16 +177,18 @@
 <li class="toctree-l1"><a class="reference internal" href="../data-engineering.html">3. Data engineering</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../model-training-and-evaluation.html">4. Model training &amp; evaluation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../model-deployment.html">5. Model deployment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../markdown.html">6. Markdown Files</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../notebooks.html">7. Content with notebooks</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Assignments</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="data-engineering.html">8. Data engineering</a></li>
-<li class="toctree-l1"><a class="reference internal" href="counterintuitive-challenges-in-ml-debugging.html">9. Counterintuitive Challenges in ML Debugging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debugging-in-classification.html">10. Case Study: Debugging in Classification</a></li>
-<li class="toctree-l1"><a class="reference internal" href="debugging-in-regression.html">11. Case Study: Debugging in Regression</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data-engineering.html">6. Data engineering</a></li>
+<li class="toctree-l1"><a class="reference internal" href="counterintuitive-challenges-in-ml-debugging.html">7. Counterintuitive Challenges in ML Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging-in-classification.html">8. Case Study: Debugging in Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debugging-in-regression.html">9. Case Study: Debugging in Regression</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">10. Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">real-world scenarios</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../xgboost_customer_churn.html">11. Customer Churn Prediction with XGBoost</a></li>
 </ul>
 
     </div>
@@ -447,16 +450,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">12.1. Importing Libraries</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">12.2. Data Exploration</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding">12.3. One-Hot Encoding</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-and-labels">12.4. Features and Labels</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">12.5. Train Test Split</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-forest">12.6. Training the Forest</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions-on-test-data">12.7. Make Predictions on Test Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-a-single-decision-tree">12.8. Visualizing a Single Decision Tree</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">12.9. Your turn! 🚀</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">12.10. Acknowledgments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">10.1. Importing Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">10.2. Data Exploration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding">10.3. One-Hot Encoding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-and-labels">10.4. Features and Labels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">10.5. Train Test Split</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-forest">10.6. Training the Forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions-on-test-data">10.7. Make Predictions on Test Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-a-single-decision-tree">10.8. Visualizing a Single Decision Tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">10.9. Your turn! 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">10.10. Acknowledgments</a></li>
 </ul>
             </nav>
         </div>
@@ -480,10 +483,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.</p>
 </details><section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1><span class="section-number">12. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">10. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
 <p>Climate Prediction-Random Forest is a model that uses a combination of climate variables and machine learning algorithms to predict future climate conditions. The model is trained on a large dataset of climate observations and uses a random forest approach to generate predictions. The predictions are based on the relationships between the climate variables and the random forest algorithm is able to capture complex patterns in the data.</p>
 <section id="importing-libraries">
-<h2><span class="section-number">12.1. </span>Importing Libraries<a class="headerlink" href="#importing-libraries" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.1. </span>Importing Libraries<a class="headerlink" href="#importing-libraries" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pandas is used for data manipulation</span>
@@ -502,7 +505,7 @@ limitations under the License.</p>
 </div>
 </section>
 <section id="data-exploration">
-<h2><span class="section-number">12.2. </span>Data Exploration<a class="headerlink" href="#data-exploration" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.2. </span>Data Exploration<a class="headerlink" href="#data-exploration" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reading the data to a dataframe </span>
@@ -666,7 +669,7 @@ dtype: int64
 <p>There are no null values</p>
 </section>
 <section id="one-hot-encoding">
-<h2><span class="section-number">12.3. </span>One-Hot Encoding<a class="headerlink" href="#one-hot-encoding" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.3. </span>One-Hot Encoding<a class="headerlink" href="#one-hot-encoding" title="Link to this heading">#</a></h2>
 <p>A one hot encoding allows the representation of categorical data to be more expressive.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -821,7 +824,7 @@ dtype: int64
 </div>
 </section>
 <section id="features-and-labels">
-<h2><span class="section-number">12.4. </span>Features and Labels<a class="headerlink" href="#features-and-labels" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.4. </span>Features and Labels<a class="headerlink" href="#features-and-labels" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Labels are the values we want to predict</span>
@@ -838,7 +841,7 @@ dtype: int64
 </div>
 </section>
 <section id="train-test-split">
-<h2><span class="section-number">12.5. </span>Train Test Split<a class="headerlink" href="#train-test-split" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.5. </span>Train Test Split<a class="headerlink" href="#train-test-split" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using Skicit-learn to split data into training and testing sets</span>
@@ -873,7 +876,7 @@ Testing Labels Shape: (70,)
 </div>
 </section>
 <section id="training-the-forest">
-<h2><span class="section-number">12.6. </span>Training the Forest<a class="headerlink" href="#training-the-forest" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.6. </span>Training the Forest<a class="headerlink" href="#training-the-forest" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the model we are using</span>
@@ -890,7 +893,7 @@ Testing Labels Shape: (70,)
 </div>
 </section>
 <section id="make-predictions-on-test-data">
-<h2><span class="section-number">12.7. </span>Make Predictions on Test Data<a class="headerlink" href="#make-predictions-on-test-data" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.7. </span>Make Predictions on Test Data<a class="headerlink" href="#make-predictions-on-test-data" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the forest&#39;s predict method on the test data</span>
@@ -929,15 +932,15 @@ Testing Labels Shape: (70,)
 </div>
 </section>
 <section id="visualizing-a-single-decision-tree">
-<h2><span class="section-number">12.8. </span>Visualizing a Single Decision Tree<a class="headerlink" href="#visualizing-a-single-decision-tree" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.8. </span>Visualizing a Single Decision Tree<a class="headerlink" href="#visualizing-a-single-decision-tree" title="Link to this heading">#</a></h2>
 <p><img alt="Decision Tree" src="https://static-1300131294.cos.ap-shanghai.myqcloud.com/images/assignment/deep-learning/nn/tree.png" /></p>
 </section>
 <section id="your-turn">
-<h2><span class="section-number">12.9. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.9. </span>Your turn! 🚀<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h2>
 <p>You can practice your random-forest skills by following the assignment <a class="reference internal" href="#../../assignments/machine-learning-productionization/random-forest-classifier.ipynb"><span class="xref myst">Climate Prediction-Random Forest</span></a>.</p>
 </section>
 <section id="acknowledgments">
-<h2><span class="section-number">12.10. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.10. </span>Acknowledgments<a class="headerlink" href="#acknowledgments" title="Link to this heading">#</a></h2>
 <p>Thanks to Kaggle for creating the open source course <a class="reference external" href="https://www.kaggle.com/code/anandhuh/climate-prediction-random-forest-94-accuracy?scriptVersionId=74560159&amp;amp;cellId=26">Climate Prediction-Random Forest</a>. It contributes some of the content in this chapter.</p>
 </section>
 </section>
@@ -978,8 +981,17 @@ Testing Labels Shape: (70,)
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">11. </span>Case Study: Debugging in Regression</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Case Study: Debugging in Regression</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../xgboost_customer_churn.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Customer Churn Prediction with XGBoost</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -997,16 +1009,16 @@ Testing Labels Shape: (70,)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">12.1. Importing Libraries</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">12.2. Data Exploration</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding">12.3. One-Hot Encoding</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-and-labels">12.4. Features and Labels</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">12.5. Train Test Split</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-forest">12.6. Training the Forest</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions-on-test-data">12.7. Make Predictions on Test Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-a-single-decision-tree">12.8. Visualizing a Single Decision Tree</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">12.9. Your turn! 🚀</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">12.10. Acknowledgments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importing-libraries">10.1. Importing Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-exploration">10.2. Data Exploration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-hot-encoding">10.3. One-Hot Encoding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#features-and-labels">10.4. Features and Labels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">10.5. Train Test Split</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-the-forest">10.6. Training the Forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions-on-test-data">10.7. Make Predictions on Test Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-a-single-decision-tree">10.8. Visualizing a Single Decision Tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">10.9. Your turn! 🚀</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#acknowledgments">10.10. Acknowledgments</a></li>
 </ul>
   </nav></div>
 
