@@ -7,7 +7,6 @@ root: index
 
 
 # Or you organize the TOC by parts
-
 parts:
 - caption: Chapters
   numbered: true
@@ -18,8 +17,6 @@ parts:
   - file: book/data-engineering
   - file: book/model-training-and-evaluation
   - file: book/model-deployment
-  - file: book/markdown
-  - file: book/notebooks
 - caption: Assignments
   numbered: true
   maxdepth: 7
@@ -29,3 +26,8 @@ parts:
   - file: book/assignments/debugging-in-classification
   - file: book/assignments/debugging-in-regression
   - file: book/assignments/random-forest-classifier
+- caption: real-world scenarios
+  numbered: true
+  maxdepth: 1
+  chapters:
+  - file: book/xgboost_customer_churn
