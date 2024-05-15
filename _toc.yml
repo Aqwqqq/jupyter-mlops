@@ -26,3 +26,8 @@ parts:
   - file: book/assignments/debugging-in-classification
   - file: book/assignments/debugging-in-regression
   - file: book/assignments/random-forest-classifier
+- caption: real-world scenarios
+  numbered: true
+  maxdepth: 1
+  chapters:
+  - file: book/xgboost_customer_churn
